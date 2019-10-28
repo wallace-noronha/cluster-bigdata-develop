@@ -1,12 +1,17 @@
-##########################################################################################################
-# 	Para funcionamento do elasticsearch executar o comando abaixo antes de subir os containers	                                        #
-#													                                                                                                                                    #
-# 	- sudo sysctl -w vm.max_map_count=262144							                                                                                        #
-##########################################################################################################
+################################################
+# 	
+#           Author: Wallace Vidal Noronha
+#           Github: https://github.com/wallace-noronha/
+#													                         
+#    For elastticsearch starts, run the following command:                                                                                                      
+# 	- sudo sysctl -w vm.max_map_count=262144							                                                                                        
+################################################
 
 version: '3.3'
 
+
 services:
+
     zookeeper1:
         image: confluentinc/cp-zookeeper
         hostname: zookeeper1
