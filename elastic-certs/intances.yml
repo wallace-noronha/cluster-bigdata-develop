@@ -1,4 +1,0 @@
-instances:
-  -name: "elasticsearch"
-  dns:
-    - "elasticsearch"
