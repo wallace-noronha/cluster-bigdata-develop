@@ -57,8 +57,7 @@ Kibana for overview elasticsearch indexes and management.
 
 # Nifi Flow
 
-The file kafka_to_elatic.xml it's a template for apache nifi, to import template open Apache Nifi and select Upload Template, instantiate chose template.
-Before open the instantiate template start the controller services.
+The file kafka_to_elatic.xml it's a template for apache nifi, to import template open Apache Nifi and select Upload Template, instantiate chose template, start the controller services.
 Start all processors and be happy.
 
 The flow is the follow:
