@@ -67,29 +67,17 @@ The flow is the follow:
 ### Processors: Publish Kafka
 The Flow open port 8888 of Apache Nifi with context /test
 
-``` flow
-http=>start: ListenHttp
-avro=>operation: convertRecord - Avro
-hex=>operation: Base64EncodeContent
-kafka=>end: PublishKafka
-
-http->avro->hex->kafka
+```flowchart
+ListenHttp -> convertRecord - Avro -> Base64EncodeContent -> PublishKafka
 ```
 ### Processors: Put Elasticsearch
- ``` flow
-kafka=>start: ConsumeKafka
-hex=>operation: Base64EncodeContent
-avro=>operation: convertRecord - Json
-putTimestamp=>operation: ExecuteGroovyScript - Put timestamp
-elasticsearch=>end: PutElasticsearchHTTP
-
-kafka->hex->avro->putTimestamp->elasticsearch
+ ```flowchart
+ConsumeKafka -> Base64EncodeContent -> convertRecord - Json -> ExecuteGroovyScript - Put timestamp -> PutElasticsearchHTTP
 
 ```
 
-
 ## Testing:
-```bash
+```sh
 curl -X POST  http://localhost:8888/test  -H 'Content-Type: application/json' -d '{"hostname":"teste", "ipaddress":""}' 
 ```
 
