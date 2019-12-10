@@ -16,6 +16,8 @@ The flow is the follow:
                 
 ### Processors: Publish Kafka
 The Flow open port 8888 of Apache Nifi with context /test
+Post example:
+curl -X POST http://localhost:8888/test -H 'Content-Type: application/json' -d '{"hostname":"localhost","ipaddress":"127.0.0.1"}'
 
 ```flowchart
 ListenHttp -> convertRecord - Avro -> Base64EncodeContent -> PublishKafka
