@@ -37,20 +37,6 @@ services:
             - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
             - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
             
-    schemaregistry:
-        image: confluentinc/cp-schema-registry
-        container_name: schemaregistry
-        hostname: schemaregistry
-        restart: on-failure
-        depends_on:
-            - zookeeper
-        ports:
-            - "8081:8081"
-        environment:
-            - SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL=zookeeper:2181
-            - SCHEMA_REGISTRY_HOST_NAME=localhost
-            - SCHEMA_REGISTRY_LISTNERS=http://localhost:8081
-
     nifi:
         image: apache/nifi
         container_name: nifi
@@ -66,8 +52,6 @@ services:
             - NIFI_CLUSTER_NODE_PROTOCOL_PORT=8082
             - NIFI_ZK_CONNECT_STRING=zookeeper:2181
             - NIFI_ELECTION_MAX_WAIT=1 min
-        volumes:
-            - ./elastic-certs/:/opt/nifi/nifi-current/conf/keystore/elastic-certs/
       
     elasticsearch:
         container_name: elasticsearch
@@ -78,7 +62,6 @@ services:
             - bootstrap.memory_lock=true
         volumes: 
             - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-            - ./elastic-certs/:/usr/share/elasticsearch/config/certs/
         ports:
             - "9200:9200"
 
@@ -87,13 +70,12 @@ services:
         image: docker.elastic.co/kibana/kibana:7.4.1
         hostname: kibana
         environment:
-            - ELASTICSEARCH_URL="https://elasticsearch:9200"
+            - ELASTICSEARCH_URL="http://elasticsearch:9200"
             - ELASTICSEARCH_USERNAME=elastic
             - ELASTICSEARCH_PASSWORD=elastic
             - xpack.security.enabled=true
         volumes: 
             - ./kibana.yml:/usr/share/kibana/config/kibana.yml
-            - ./elastic-certs/:/usr/share/kibana/config/certs/
         ports:
             - "5601:5601"
         depends_on:
