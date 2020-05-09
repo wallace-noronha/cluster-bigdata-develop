@@ -24,7 +24,7 @@ ListenHttp -> convertRecord - Avro -> Base64EncodeContent -> PublishKafka
 ```
 ### Processors: Put Elasticsearch
  ```flowchart
-ConsumeKafka -> Base64EncodeContent -> convertRecord - Json -> ExecuteGroovyScript - Put timestamp -> PutElasticsearchHTTP
+ConsumeKafka -> convertRecord - Json -> ExecuteGroovyScript - Put timestamp -> PutElasticsearchHTTP
 
 ```
 
@@ -51,14 +51,6 @@ Single instance of Apache kafka for data stream.
 #### imagem: confluentinc/cp-kafka:latest
 #### dependencies: zookeeper
 
-
-## Schemaregistry
-Single instance of Schema-Registry for storing and retrieving avro schemas.
-#### Hostname: schemaregistry
-#### exposeds ports: 8081
-#### imagem: confluentinc/cp-schema-registry:latest
-#### dependencies: zookeeper
-
 ## Nifi
 Apache nifi for data movement
 #### Hostname: nifi
@@ -68,7 +60,7 @@ Apache nifi for data movement
 
 ## Elasticsearch
 Elasticsearch NOSQL database, DOC based.
-Elasticsearch with ssl and authentication enabled for testing Apache Nifi processor.
+Elasticsearch with authentication enabled for testing Apache Nifi processor.
 username and password = elastic
 
 #### Hostname: elasticsearch
